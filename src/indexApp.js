@@ -5,7 +5,7 @@ class IndexApp extends Component{
 	render(){
 		return(
 			<div>
-				<p>Hello world!</p>
+				<p>Goodbye world!</p>
 			</div>
 		)
 	}
