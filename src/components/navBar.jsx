@@ -34,7 +34,8 @@ class NavBar extends Component{
 			<div>
 				<nav className = 'navBar'>
 					<Link to ='/'>Home</Link>
-					{this.noLogin()}
+					{this.props.user.username?
+						this.login():this.noLogin()}
 				</nav>
 
 				<Route exact path= '/' component ={Home}/>
