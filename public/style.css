@@ -1,3 +1,39 @@
 body{
 	text-align: center;
+	margin:0 10% 10% 10%;
+}
+nav a{
+	text-decoration: none;
+	color:white;
+	margin:2%;
+}
+a:hover{
+	color:orange;
+}
+.navBar{
+	background-color:#33401c;
+	font-size:20px;
+	padding: 1%;
+	text-align: right;
+}
+.reglog{
+	display:flex;
+	text-align: center;
+	margin-top:3%;
+}
+.reglogChild{
+	flex:1;
+	border-style: solid;
+	border-color: black;
+	padding:2%;
+}
+input{
+	padding:1%;
+	margin:1%;
+}
+.buttons{
+	background-color:#33401c;
+	color:white;
+	padding:1.5%;
+	border:none;
 }
