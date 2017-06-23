@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {searchBars} from '../redux/modules/searchModule'
+import {fetchBars} from '../redux/modules/searchModule'
 
 
 
@@ -11,6 +11,7 @@ class Home extends Component{
 			search:''
 		}
 		this.handleChange = this.handleChange.bind(this);
+		this.search = this.search.bind(this);
 	}
 	handleChange(event){
 		this.setState({search:event.target.value})
@@ -23,15 +24,20 @@ class Home extends Component{
 		.then(response=>console.log(response))
 		.catch(error=> console.log('client error'))
 	}
+	search(e){
+		e.preventDefault();
+		this.props.search(this.state.search)
+	}
 	render(){
+
 		return(
 			<div>
 				<h2>Nightlife Coordination</h2>
-				<input type='text' placeholder='Search Any Location' 
-				value={this.state.search} onChange={this.handleChange}
-				/*onKeyUp = {()=>this.props.search(this.state.search)}*/  />
-				<input className='buttons' type='submit' 
-				value='Search' onClick={()=>this.props.search(this.state.search)} />
+				<form onSubmit={this.search}>
+					<input type='text' placeholder='Search Any Location' 
+					value={this.state.search} onChange={this.handleChange} />
+					<input className='buttons' type='submit' value='Search'  />
+				</form>
 			</div>
 		)
 	}
@@ -44,7 +50,7 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToprops = (dispatch)=>{
 	return{
-		search:(term)=> dispatch(searchBars(term))
+		search:(term)=> dispatch(fetchBars(term))
 	}
 }
 

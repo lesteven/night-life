@@ -7,11 +7,12 @@ var token;
 
 
 yelpRouter.post('/', function(req,res){
-	getYelpToken();
+	token = getYelpToken();
 })
 
 yelpRouter.post('/search', function(req,res){
-
+	console.log(req.body.term)
+	search(req.body.term,token)
 })
 
 function getYelpToken(){
@@ -25,7 +26,7 @@ function getYelpToken(){
      	qs.stringify(details))
      	.then(response =>{
      		token = response.data.access_token;
-			console.log('YELP TOKEN RECEIVED',response.data)
+			console.log('YELP TOKEN RECEIVED')
      	})
         .catch(err=> console.log('server error'))
         //req.token_data = response.data;
@@ -33,17 +34,18 @@ function getYelpToken(){
      return token;
 }
 
-function search(){
+function search(term,token){
     var url = 'https://api.yelp.com/v3/businesses/search';
     url += '?categories=bars';
-
+    url +='&location=' + term
 	axios({
 		method:'get',
 		url:url,
-		header:{'Authorization':('Bearer' + token)}
+		headers:{'Authorization':'Bearer ' + token}
 	})
 	.then(response=>{
-		console.log(response)
+		console.log(response.data)
 	})
+	.catch(err=> console.log(err))
 }
 module.exports = yelpRouter;

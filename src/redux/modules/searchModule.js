@@ -1,5 +1,4 @@
-//var qs = require('querystring');
-var axios =require('axios');
+var qs = require('querystring');
 
 //action
 export function searchBars(search){
@@ -12,17 +11,17 @@ export function searchBars(search){
 //async, action creator
 export function fetchBars(term){
 	return (dispatch) =>{
-		var header = new Headers({
-			'Content-Type': 'text/plain'
-		})
+		dispatch(searchBars(term))
+		var formData = {
+			term:term
+		}
 		fetch('/yelp/search',
 		{
 			method:'POST',
-			headers:header,
-			body:term
+			headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+			body: qs.stringify(formData)
 		})
-		.then(search =>dispatch(searchBars(search)))
-		
+		.then(console.log(formData))
 	}
 }
 
