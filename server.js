@@ -36,6 +36,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //routers
 var userRouter = require('./routes/userRouter');
+var yelpRouter = require('./routes/yelpRouter');
 
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
@@ -47,7 +48,9 @@ app.use(express.static(__dirname + '/dist'));
 app.use('/',express.static(__dirname + '/public'));
 
 app.use('/users',userRouter);
+app.use('/yelp',yelpRouter);
 
+//redirect  to client
 app.get('*', function(req,res){
 	res.sendFile(path.join(__dirname+'/public/index.html'))
 })

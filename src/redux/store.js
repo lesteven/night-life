@@ -1,10 +1,11 @@
 import {createStore, applyMiddleware, combineReducers,compose} from 'redux';
 import thunk from 'redux-thunk';
 import user from './modules/loginModule';
-
+import search from './modules/searchModule';
 
 const reducers = combineReducers({
-	user
+	user,
+	search
 })
 
 export default function configureStore(initialState){
