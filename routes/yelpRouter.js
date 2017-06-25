@@ -7,15 +7,15 @@ var token;
 
 
 yelpRouter.post('/', function(req,res){
-	token = getYelpToken();
+	token = getYelpToken(req,res);
 })
 
 yelpRouter.post('/search', function(req,res){
 	console.log(req.body.term)
-	search(req.body.term,token)
+	search(req.body.term,token,res)
 })
 
-function getYelpToken(){
+function getYelpToken(req,res){
 
 	var details = {
 	    'grant_type': 'client_credentials',
@@ -26,15 +26,17 @@ function getYelpToken(){
      	qs.stringify(details))
      	.then(response =>{
      		token = response.data.access_token;
+     		 //req.token_data = response.data;
+        	//req.token = response.data.access_token;
 			console.log('YELP TOKEN RECEIVED')
+			res.json({'status':'success'})
      	})
         .catch(err=> console.log('server error'))
-        //req.token_data = response.data;
-        //req.token = response.data.access_token;
+
      return token;
 }
 
-function search(term,token){
+function search(term,token,res){
     var url = 'https://api.yelp.com/v3/businesses/search';
     url += '?categories=bars';
     url +='&location=' + term
@@ -44,7 +46,8 @@ function search(term,token){
 		headers:{'Authorization':'Bearer ' + token}
 	})
 	.then(response=>{
-		console.log(response.data)
+		//console.log(response.data.businesses[0])
+		res.json(response.data)
 	})
 	.catch(err=> console.log(err))
 }

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchBars} from '../redux/modules/searchModule'
-
+import BarsList from '../components/barsList.jsx'
 
 
 class Home extends Component{
@@ -33,11 +33,13 @@ class Home extends Component{
 		return(
 			<div>
 				<h2>Nightlife Coordination</h2>
+				<p>Powered by Yelp</p>
 				<form onSubmit={this.search}>
 					<input type='text' placeholder='Search Any Location' 
 					value={this.state.search} onChange={this.handleChange} />
 					<input className='buttons' type='submit' value='Search'  />
 				</form>
+				<BarsList />
 			</div>
 		)
 	}
