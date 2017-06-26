@@ -8,6 +8,8 @@ class BarsList extends Component{
 		if(this.props.search.data){
 			list = this.props.search.data.map((bar,index)=>{
 			return <Bars key={index}
+					user = {this.props.user.username}
+					id = {bar.id}
 					name= {bar.name}
 					image ={bar.image_url}
 					url = {bar.url}
@@ -23,6 +25,7 @@ class BarsList extends Component{
 }
 const mapStateToProps = (state) =>{
 	return{
+		user:state.user,
 		search:state.search,
 		data: state.data
 	}

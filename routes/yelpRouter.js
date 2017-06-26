@@ -3,6 +3,7 @@ var yelpRouter = express.Router();
 var qs = require('querystring');
 var axios =require('axios');
 var config = require('../config.js');
+var UserList = require('../models/userList');
 var token;
 
 
@@ -13,6 +14,20 @@ yelpRouter.post('/', function(req,res){
 yelpRouter.post('/search', function(req,res){
 	console.log(req.body.term)
 	search(req.body.term,token,res)
+})
+
+yelpRouter.route('/go')
+.post(function(req,res){
+	addToList(req);
+	res.json({
+		status:'success',
+		id:req.body.location,
+		user:req.body.user
+	})
+})
+.delete(function(req,res){
+	removeFromList(req)
+	res.json({status:'success'})
 })
 
 function getYelpToken(req,res){
@@ -50,5 +65,43 @@ function search(term,token,res){
 		res.json(response.data)
 	})
 	.catch(err=> console.log(err))
+}
+function addToList(req){
+	UserList.findById(req.body.location,function(err,list){
+		if(err) throw err;
+		if(!list){
+			makeList(req);
+		}
+		else{
+			list.list.push(req.body.user);
+			list.markModified('list');
+			list.save();
+			console.log(list)
+		}
+	})
+}
+function removeFromList(req){
+	UserList.findById(req.body.location,function(err,list){
+		if(err) throw err;
+		
+		var index = list.list.indexOf(req.body.user)
+		list.list.splice(index,1)
+		list.markModified('list');
+		list.save();
+		console.log(list)
+		
+	})
+}
+function makeList(req){
+	var list = [];
+	list.push(req.body.user);
+	var data =({
+		_id: req.body.location,
+		list: list
+	})
+	UserList.create(data,function(err,list){
+		if(err) throw err;
+		console.log(list)
+	})
 }
 module.exports = yelpRouter;
