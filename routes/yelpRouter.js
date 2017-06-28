@@ -106,13 +106,18 @@ function addToList(req){
 function removeFromList(req){
 	UserList.findById(req.body.location,function(err,list){
 		if(err) throw err;
-		
-		var index = list.list.indexOf(req.body.user)
-		list.list.splice(index,1)
-		list.markModified('list');
-		list.save();
-		console.log(list)
-		
+		if(list.list.length < 2){
+			UserList.remove({_id:req.body.location},function(err,list){
+				if(err) throw err;
+			})
+		}
+		else{
+			var index = list.list.indexOf(req.body.user)
+			list.list.splice(index,1)
+			list.markModified('list');
+			list.save();
+			console.log(list)
+		}
 	})
 }
 function makeList(req){
