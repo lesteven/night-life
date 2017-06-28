@@ -40,8 +40,8 @@ input{
 .bar{
 	display:flex;
 	margin:1%;
-	max-height:100px;
-	min-height:100px;
+	max-height:125px;
+	min-height:125px;
 	overflow:hidden;
 	align-items: center;
 	justify-content: center;
@@ -59,4 +59,7 @@ img{
 	flex:1;
 	height:50px;
 
+}
+.list{
+	display:inline;
 }

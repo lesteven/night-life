@@ -5,7 +5,6 @@ class Bars extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			going:'false'
 		}
 		this.go = this.go.bind(this);
 		this.dontGo = this.dontGo.bind(this);
@@ -13,7 +12,7 @@ class Bars extends Component{
 	}
 
 	go(id,user){
-		this.setState({going:true});
+		//this.setState({going:true});
 		let formData ={
 			location: id,
 			user:user,
@@ -27,7 +26,7 @@ class Bars extends Component{
 		.then(response =>response.json())
 		.then(data => {
 			console.log(data)
-			this.setState({going:'true'})
+			this.setState({going:true})
 		})
 	}
 	dontGo(id,user){
@@ -45,7 +44,7 @@ class Bars extends Component{
 		.then(response =>response.json())
 		.then(data => {
 			console.log(data)
-			this.setState({going:'false'})
+			this.setState({going:false})
 		})
 	}
 	goButton(){
@@ -63,7 +62,7 @@ class Bars extends Component{
 		)	
 	}
 	getUserStatus(id,user){
-		let status;
+		//let status;
 		let formData ={
 			location: id,
 			user:user,
@@ -76,25 +75,33 @@ class Bars extends Component{
 		})
 		.then(response =>response.json())
 		.then(data => {
-			this.setState({going:data.status})
-			status = data.status
-			console.log(id,data.status,status)
-			return data.status
+			this.setState({going:data.status,list:data.list})
+			//status = data.status
+			//console.log(id,data.status,status,data.list)
+			//return data.status
 		})
 	}
 	componentWillMount(){
-	this.getUserStatus(this.props.id,this.props.user)
+		this.getUserStatus(this.props.id,this.props.user)
 	}
+
 	render(){
+		let list;
+		if(this.state.list){
+			list = this.state.list.map((person,index)=>{
+				return <p className='list' key={index}>{person}. </p>
+			})
+		}
 		return(
 			<div>
 				<div className ='bar'>
 					<a target='_blank' href={this.props.url}><img src={this.props.image}/></a>
 					<div className='description'>
 						<h3 className='title'>{this.props.name}</h3>
-						<p>People going:</p>
+						<p>People going: {this.state.list?this.state.list.length:null}</p>
+						{list}
 					</div>
-					{this.state.going ==='true'?this.dontGoButton():this.goButton()}
+					{this.state.going?this.dontGoButton():this.goButton()}
 				</div>
 				<hr/>
 			</div>

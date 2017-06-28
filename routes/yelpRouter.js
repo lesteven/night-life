@@ -76,15 +76,15 @@ function checkStatus(req,res){
 	UserList.findById(req.body.location,function(err,list){
 		if(err) throw err;
 		if(!list){
-			res.json({status:'false'})
+			res.json({status:false})
 		}
 		else{
 			var index = list.list.indexOf(req.body.user)
 			if(index ===-1){
-				res.json({status:'false'})
+				res.json({status:false,list:list.list})
 			}
 			else{
-				res.json({status:'true',index:index})
+				res.json({status:true,list:list.list})
 			}
 		}
 	})
