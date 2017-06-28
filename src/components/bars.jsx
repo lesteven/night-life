@@ -5,6 +5,7 @@ class Bars extends Component{
 	constructor(props){
 		super(props);
 		this.state={
+			going:'false'
 		}
 		this.go = this.go.bind(this);
 		this.dontGo = this.dontGo.bind(this);
@@ -26,11 +27,11 @@ class Bars extends Component{
 		.then(response =>response.json())
 		.then(data => {
 			console.log(data)
-			this.setState({going:true})
+			this.setState({going:'true'})
 		})
 	}
 	dontGo(id,user){
-		this.setState({going:false});
+		//this.setState({going:false});
 		let formData ={
 			location: id,
 			user:user,
@@ -44,7 +45,7 @@ class Bars extends Component{
 		.then(response =>response.json())
 		.then(data => {
 			console.log(data)
-			this.setState({going:false})
+			this.setState({going:'false'})
 		})
 	}
 	goButton(){
@@ -78,10 +79,11 @@ class Bars extends Component{
 			this.setState({going:data.status})
 			status = data.status
 			console.log(id,data.status,status)
+			return data.status
 		})
 	}
 	componentWillMount(){
-		this.getUserStatus(this.props.id,this.props.user)
+	this.getUserStatus(this.props.id,this.props.user)
 	}
 	render(){
 		return(
@@ -92,9 +94,7 @@ class Bars extends Component{
 						<h3 className='title'>{this.props.name}</h3>
 						<p>People going:</p>
 					</div>
-					{this.state.going}
-					<button onClick={()=>this.go(this.props.id,this.props.user)}>Go</button>
-					<button onClick={()=>this.dontGo(this.props.id,this.props.user)}>Dont Go</button>
+					{this.state.going ==='true'?this.dontGoButton():this.goButton()}
 				</div>
 				<hr/>
 			</div>

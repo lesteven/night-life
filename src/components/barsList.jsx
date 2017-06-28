@@ -9,6 +9,7 @@ class BarsList extends Component{
 		this.state={
 		}
 		//this.getUserStatus = this.getUserStatus.bind(this);
+		let status;
 	}
 
 	render(){
@@ -21,6 +22,7 @@ class BarsList extends Component{
 					name= {bar.name}
 					image ={bar.image_url}
 					url = {bar.url}
+					status = {status}
 					/>
 			})
 		}
