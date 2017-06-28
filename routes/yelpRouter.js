@@ -17,6 +17,11 @@ yelpRouter.post('/search', function(req,res){
 })
 
 yelpRouter.route('/go')
+
+.put(function(req,res){
+	checkStatus(req,res);
+})
+
 .post(function(req,res){
 	addToList(req);
 	res.json({
@@ -25,6 +30,7 @@ yelpRouter.route('/go')
 		user:req.body.user
 	})
 })
+
 .delete(function(req,res){
 	removeFromList(req)
 	res.json({status:'success'})
@@ -65,6 +71,23 @@ function search(term,token,res){
 		res.json(response.data)
 	})
 	.catch(err=> console.log(err))
+}
+function checkStatus(req,res){
+	UserList.findById(req.body.location,function(err,list){
+		if(err) throw err;
+		if(!list){
+			res.json({status:'false'})
+		}
+		else{
+			var index = list.list.indexOf(req.body.user)
+			if(index ===-1){
+				res.json({status:'false'})
+			}
+			else{
+				res.json({status:'true',index:index})
+			}
+		}
+	})
 }
 function addToList(req){
 	UserList.findById(req.body.location,function(err,list){
