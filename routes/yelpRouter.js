@@ -12,7 +12,7 @@ yelpRouter.post('/', function(req,res){
 })
 
 yelpRouter.post('/search', function(req,res){
-	console.log(req.body.term)
+	//console.log(req.body.term)
 	search(req.body.term,token,res)
 })
 
@@ -99,7 +99,7 @@ function addToList(req){
 			list.list.push(req.body.user);
 			list.markModified('list');
 			list.save();
-			console.log(list)
+			//console.log(list)
 		}
 	})
 }
@@ -116,7 +116,7 @@ function removeFromList(req){
 			list.list.splice(index,1)
 			list.markModified('list');
 			list.save();
-			console.log(list)
+			//console.log(list)
 		}
 	})
 }
@@ -129,7 +129,7 @@ function makeList(req){
 	})
 	UserList.create(data,function(err,list){
 		if(err) throw err;
-		console.log(list)
+		//console.log(list)
 	})
 }
 module.exports = yelpRouter;

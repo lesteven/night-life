@@ -21,7 +21,7 @@ class Home extends Component{
 			credentials:'same-origin',
 			method: 'POST'
 		})
-		.then(response=>console.log(response))
+		//.then(response=>console.log(response))
 		.then(data =>{
 			let storage = localStorage.getItem('searchTerm');
 			if(storage){this.props.search(storage)}

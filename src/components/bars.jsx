@@ -24,7 +24,7 @@ class Bars extends Component{
 		})
 		.then(response =>response.json())
 		.then(data => {
-			console.log(data)
+			//console.log(data)
 			this.getUserStatus(this.props.id,this.props.user)
 		})
 	}
