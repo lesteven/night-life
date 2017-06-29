@@ -22,7 +22,7 @@ export function fetchBars(term){
 			headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
 			body: qs.stringify(formData)
 		})
-		.then(console.log(formData))
+		//.then(console.log(formData))
 		.then(response => response.json())
 		.then(data => dispatch(searchBars(term,data.businesses)))
 	}
