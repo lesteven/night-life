@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import {Link} from 'react-router-dom';
+import RegLog from '../views/regLog.jsx';
 var qs = require('querystring');
 
 class Bars extends Component{
@@ -9,7 +11,6 @@ class Bars extends Component{
 		this.go = this.go.bind(this);
 		this.getUserStatus = this.getUserStatus.bind(this);
 	}
-
 	go(id,user,method){
 		let formData ={
 			location: id,
@@ -24,7 +25,6 @@ class Bars extends Component{
 		.then(response =>response.json())
 		.then(data => {
 			console.log(data)
-			//this.setState({going:true})
 			this.getUserStatus(this.props.id,this.props.user)
 		})
 	}
@@ -77,7 +77,9 @@ class Bars extends Component{
 						<p>People going: {this.state.list?this.state.list.length:null}</p>
 						{list}
 					</div>
-					{this.state.going?this.dontGoButton():this.goButton()}
+					{this.props.user?
+						(this.state.going?this.dontGoButton():this.goButton())
+						:<Link to ='/reglog'>GO</Link>}
 				</div>
 				<hr/>
 			</div>
