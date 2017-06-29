@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var UserList = new Schema({
 	_id: {type:String,required:true},
-	list:{type:[]}
+	list:{type:[]},
+	createdAt:{type:Date, expires:'12h'}
 },{
 	_id:false
 });
