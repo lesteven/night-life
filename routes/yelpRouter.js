@@ -2,7 +2,7 @@ var express = require('express');
 var yelpRouter = express.Router();
 var qs = require('querystring');
 var axios =require('axios');
-var config = require('../config.js');
+//var config = require('../config.js');
 var UserList = require('../models/userList');
 var token;
 
@@ -40,8 +40,8 @@ function getYelpToken(req,res){
 
 	var details = {
 	    'grant_type': 'client_credentials',
-	    'client_id': config.ID,
-	    'client_secret': config.SECRET
+	    'client_id': process.env.ID, //||config.ID,
+	    'client_secret': process.env.SECRET //||config.SECRET
 	};
      axios.post('https://api.yelp.com/oauth2/token', 
      	qs.stringify(details))

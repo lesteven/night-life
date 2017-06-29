@@ -15,11 +15,14 @@ class NavBar extends Component{
 		this.props.getUser()
 		
 	}
+	removeStorage(){
+		localStorage.clear()
+	}
 	login(){
 		return(
 			<span>
 				<a >{this.props.user.username} </a>
-				<a href ='/users/logout'>Log Out</a>
+				<a href ='/users/logout' onClick={this.removeStorage}>Log Out</a>
 			</span>
 		)
 	}

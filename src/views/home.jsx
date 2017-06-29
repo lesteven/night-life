@@ -22,10 +22,17 @@ class Home extends Component{
 			method: 'POST'
 		})
 		.then(response=>console.log(response))
+		.then(data =>{
+			let storage = localStorage.getItem('searchTerm');
+			if(storage){this.props.search(storage)}
+		})
 		.catch(error=> console.log('client error'))
 	}
 	search(e){
 		e.preventDefault();
+		let storage = localStorage.getItem('searchTerm');
+		localStorage.setItem('searchTerm',this.state.search)
+		
 		this.props.search(this.state.search)
 	}
 	render(){
