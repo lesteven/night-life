@@ -40,7 +40,7 @@ function getYelpToken(req,res){
 
 	var details = {
 	    'grant_type': 'client_credentials',
-	    'client_id': process.env.ID, //||config.ID,
+	    'client_id': process.env.ID,//||config.ID,
 	    'client_secret': process.env.SECRET //||config.SECRET
 	};
      axios.post('https://api.yelp.com/oauth2/token', 
